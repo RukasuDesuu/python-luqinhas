@@ -1,17 +1,19 @@
 [tool.poetry]
-name = "python-luqinhas"
+name = "python_luqinhas"
 version = "0.1.0"
 description = "The hypermodern Python project"
 license = "MIT"
 authors = ["Luqinhas <lucascamargoekroth@gmail.com>"]
 readme = "README.md"
 
-homepage = "https://github.com/<your-username>/hypermodern-python"
-repository = "https://github.com/<your-username>/hypermodern-python"
+homepage = "https://github.com/RukasuDesuu/python-luqinhas"
+repository = "https://github.com/RukasuDesuu/python-luqinhas"
 keywords = ["hypermodern"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+click = "^7.0"
+requests = "^2.31.0"
 
 
 [build-system]
@@ -23,3 +25,6 @@ package-dir = {"" = "src"}
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.poetry.scripts]
+python-luqinhas = "python_luqinhas.console:main"
