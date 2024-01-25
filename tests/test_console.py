@@ -2,6 +2,7 @@
 
 import click.testing
 import pytest
+import requests
 
 from python_luqinhas import console
 
@@ -13,7 +14,7 @@ def runner():
 def mock_requests_get(mocker):
 	mock = mocker.patch("requests.get")
 	mock.return_value.__enter__.return_value.json.return_value = {
-		"title": "Lorem IpsuM",
+		"title": "Lorem Ipsum",
 		"extract": "Lorem impsuim dolor sit amet",
 	}
 	return mock
@@ -39,4 +40,9 @@ def test_main_fails_on_request_error(runner, mock_requests_get):
 	mock_requests_get.side_effect = Exception("Boom")
 	result = runner.invoke(console.main)
 	assert result.exit_code == 1
+
+def test_main_prints_message_on_request_error(runner, mock_requests_get):
+	mock_requests_get.side_effect = requests.RequestException
+	result = runner.invoke(console.main)
+	assert "Error" in result.output
 
