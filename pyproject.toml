@@ -1,3 +1,4 @@
+
 [tool.poetry]
 name = "python_luqinhas"
 version = "0.1.0"
@@ -16,6 +17,12 @@ click = "^7.0"
 requests = "^2.31.0"
 
 
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.4"
+coverage = {extras = ["toml"], version = "^7.4.0"}
+pytest-cov = "^4.1.0"
+pytest-mock = "^3.12.0"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -28,3 +35,19 @@ where = ["src"]
 
 [tool.poetry.scripts]
 python-luqinhas = "python_luqinhas.console:main"
+
+[tool.pytest.ini_options]
+addopts = [
+    "--import-mode=importlib",
+]
+
+[tool.coverage.paths]
+source = ["src", "*/site-packages"]
+
+[tool.coverage.run]
+branch = true
+source = ["python_luqinhas"]
+
+[tool.coverage.report]
+show_missing = true
+fail_under = 100
