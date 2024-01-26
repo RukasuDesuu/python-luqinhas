@@ -1,24 +1,25 @@
-#src/python_luqinhas/console.py
-
+# src/hypermodern-python/console.py
 import textwrap
-
 import click
-import requests
 
-from . import __version__
-
-API_URL = "https://pt.wikipedia.org/api/rest_v1/page/random/summary"
+from . import __version__, wikipedia
 
 @click.command()
-@click.version_option(version= __version__)
-def main():
-	"""The PYTHON LUQINHAS project."""
-	with requests.get(API_URL) as response:
-		response.raise_for_status()
-		data = response.json()
+@click.option(
+	"--language",
+	"-l",
+	default="en",
+	help="Language edition of Wikipedia",
+	metavar="LANG",
+	show_default=True,
+)
 
-	title = data ["title"]
+@click.version_option(version=__version__)
+
+def main(language):
+	"""The PYTHON luqinhas project."""
+	data = wikipedia.random_page(language=language)
+	title = data["title"]
 	extract = data["extract"]
-	
 	click.secho(title, fg="green")
 	click.echo(textwrap.fill(extract))
